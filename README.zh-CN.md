@@ -4,7 +4,7 @@
 
 用受控实验评估 RAG：不仅看某个组件改对了哪些答案，也看它改坏了哪些答案。
 
-rag-framework 在同一份数据切片上运行闭卷、基础 RAG、增强 RAG 和验证修订四种流水线，并分别统计答案正确性、检索相关性、证据支持和引用质量。验证修订总是与它所基于的初稿配对比较，因此"改对的"和"改坏的"都会被计入。
+rag-framework 在同一份数据切片上运行闭卷、基础 RAG、增强 RAG 和验证修订四种方案，并分别统计答案正确性、检索相关性、证据支持和引用质量。验证修订总是与它所基于的初稿配对比较，因此"改对的"和"改坏的"都会被计入。
 
 - 内置 KILT（NQ、HotpotQA）、ALCE（ASQA、QAMPARI）、SciFact、GaRAGe、RAGTruth 和 RGB 的数据适配器
 - 可替换或移除的组件：查询改写、BM25、稠密检索、排名融合、交叉编码器重排、句子筛选、带引用生成和验证修订
@@ -79,7 +79,7 @@ python -m scripts.evaluate_predictions --predictions outputs/formal/toy-vanilla/
 
 ## 在真实基准上运行
 
-下面以 ALCE ASQA 为例走完整个流程。这一部分需要下载模型并提供 OpenAI API 密钥。建议先用 `--limit 20` 试跑，看过 `cost_latency.json` 里的用量后再扩大规模。
+下面以 ALCE ASQA 为例走完整个流程。这一部分需要下载模型并提供 OpenAI API 密钥。建议先用 `--limit 20` 测试，根据 `cost_latency.json` 里的用量决定如何扩大规模。
 
 **1. 安装模型相关依赖。**
 
@@ -116,7 +116,7 @@ python -m scripts.build_index --dataset alce_asqa --pipeline vanilla_rag --split
 
 NumPy 检索不需要额外安装。使用 `--search-backend faiss` 时，需要安装与你的平台匹配的 FAISS。
 
-**5. 比较四种流水线。**
+**5. 比较四种方案。**
 
 ```sh
 python -m scripts.run_experiment_suite --dataset alce_asqa --split-profile mvp --limit 20 --execution-profile quality_max --generator openai --query-rewriter openai --dense-index-path models/indexes/asqa-example --suite-id asqa-example
@@ -134,9 +134,9 @@ python -m scripts.run_ablation --dataset alce_asqa --split-profile mvp --limit 2
 
 | 术语 | 含义 |
 | --- | --- |
-| `mvp`、`dev_small`、`formal` | 适配器生成的数据划分。`dev_small` 是开发集（多数数据集最多 300 条），`mvp` 是其中前 100 条，用于快速试跑；`formal` 是与开发集不重叠的评估集。RAGTruth 使用 `judge_calibration` 和 `judge_eval`。每次运行读取 `--split-profile` 对应的划分文件，文件不存在时直接报错。 |
+| `mvp`、`dev_small`、`formal` | 适配器生成的数据划分。`dev_small` 是开发集（多数数据集最多 300 条），`mvp` 是其中前 100 条，用于快速测试；`formal` 是与开发集不重叠的评估集。RAGTruth 使用 `judge_calibration` 和 `judge_eval`。每次运行读取 `--split-profile` 对应的划分文件，文件不存在时直接报错。 |
 | `outputs/formal/` | 保存流水线运行结果的目录。目录名是固定的，与所用划分无关。 |
-| `smoke` 组件 | 确定性的替身组件，不下载模型、不调用 API，只用来检查数据流是否跑通。它们的分数不反映模型质量。 |
+| `smoke` 组件 | 确定性的替身组件，只用来检查数据流是否跑通。它们的分数不反映模型质量。 |
 | 初稿 | `best_practice_rag` 在验证修订之前给出的答案。验证结果总是和它所基于的初稿配对。 |
 | 上下文集 | 数据集为某个样例在某种条件下提供的一组固定段落，例如 RGB 的某个噪声比例。用 `--context-condition` 和 `--context-metadata` 选择，详见[进阶用法](docs/advanced-usage.md#context-conditions)。 |
 | 候选缓存 | 预先为每个 KILT 问题冻结的一批维基百科候选，运行时直接使用，不再检索全量语料。 |
@@ -215,10 +215,10 @@ python -m pytest -q
 
 欢迎提交问题报告和 pull request。提交 pull request 前请先跑一遍测试。
 
-## 局限
+## 请注意
 
 - toy 数据集和 smoke 组件只用来跑通接口，它们的分数不反映模型质量。
-- 基于模型的评判需要针对具体任务校准，并经过人工验证。测试通过并不说明评估器准确，也不说明修订有益。
+- 基于模型的评判需要针对具体任务校准，并经过人工验证。测试通过不一定是评估器准确，也未必说明修订有益。
 - 证据支持是相对于所选证据衡量的，可能与事实正确性不一致。KILT 使用候选池检索时，报告结果应注明检索范围。
 - 按 token 估算的费用可能与实际账单不同。缓存、重试和外部服务都会影响结果的可重复性。
 - 本仓库只提供工具，不包含实验结果。
