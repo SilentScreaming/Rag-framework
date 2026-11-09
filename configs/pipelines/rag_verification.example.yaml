@@ -1,0 +1,56 @@
+name: rag_verification
+base_pipeline: best_practice_rag
+method:
+  family: rag_verification
+  paper_reference: Dhuliawala et al. 2024 Chain-of-Verification, extended with targeted retrieval.
+  project_implementation: Reuses the enhanced RAG draft, then independently verifies atomic claims and applies confidence-gated revisions.
+  controlled_parent: best_practice_rag
+task_profile:
+  track: short_answer
+  answer_mode: short
+  citations_required: true
+  abstention_allowed: true
+  max_answer_tokens: 64
+budget:
+  profile: quality_max
+  max_context_tokens: 4096
+  max_generation_tokens: 512
+  max_queries: 7
+  max_verification_questions: 8
+  strict_components: true
+stages:
+  query_formulation: multi_query_rewrite
+  retrieval: hybrid
+  reranking: cross_encoder
+  compression: sentence_top_n
+  generation: citation_aware
+  verification: factored_cove
+verification:
+  # Only scientific_claim_verification / list_answer_citation use this policy.
+  # Calibrate these thresholds for the target task.
+  task_revision:
+    policy: constrained_revision
+    max_edits: 2
+    max_calls: 16
+    max_input_tokens: 4096
+    max_context_tokens: 2048
+    # Independent evidence input cap for SciFact; selected abstracts are not
+    # truncated to the answer generator's context limit. Calls share its ledger.
+    scientific_max_input_tokens: 65536
+    support_threshold: 0.8
+    contradiction_threshold: 0.8
+    allow_removal: true
+  questions_per_answer: 8
+  retrieval_top_k: 5
+  revise_answer: true
+  revision_threshold: 0.8
+  replacement_support_threshold: 0.8
+  revise_short_answer: false
+  allow_abstention: false
+  allow_claim_removal: false
+  minimum_revision_similarity: 0.95
+  minimum_revision_length_ratio: 0.8
+  maximum_revision_length_ratio: 1.25
+generation:
+  temperature: 0.0
+  max_output_tokens: 384

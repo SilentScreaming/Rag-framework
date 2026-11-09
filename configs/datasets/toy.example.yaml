@@ -1,0 +1,19 @@
+name: toy
+role: synthetic_usage_example
+task_track: short_answer
+enabled: true
+split: demo
+seed: 42
+source:
+  provider: authored_synthetic
+  version: synthetic-v1
+  root_key: toy
+sampling:
+  profile: mvp
+processing:
+  corpus_scope: full_corpus
+  answer_mode: short
+  generation_max_tokens: 64
+  budget_matched_generation_max_tokens: 64
+  relevance_threshold: 3
+  abstention_allowed: true

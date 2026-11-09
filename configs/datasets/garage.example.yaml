@@ -1,0 +1,19 @@
+name: garage
+role: grounding_and_selective_refusal
+task_track: verification_hallucination
+enabled: true
+split: all
+seed: 42
+source:
+  provider: amazon_science
+  version: acl2025-v1
+  root_key: garage
+sampling:
+  profile: formal
+processing:
+  corpus_scope: per_example_provided_context
+  answer_mode: long
+  generation_max_tokens: 256
+  budget_matched_generation_max_tokens: 128
+  relevance_threshold: 3
+  abstention_allowed: true

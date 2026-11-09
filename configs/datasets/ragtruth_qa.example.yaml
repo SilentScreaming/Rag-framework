@@ -1,0 +1,17 @@
+name: ragtruth_qa
+role: hallucination_judge_calibration
+task_track: verification_hallucination
+enabled: true
+split: mixed
+seed: 42
+source:
+  provider: particlemedia
+  version: 2024-02
+  root_key: ragtruth_qa
+sampling:
+  profile: judge_calibration
+processing:
+  corpus_scope: per_example_provided_context
+  answer_mode: claims
+  generation_max_tokens: 256
+  has_gold_answer: false

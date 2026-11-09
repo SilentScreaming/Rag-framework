@@ -1,0 +1,19 @@
+name: alce_qampari
+role: list_answer_citation
+task_track: long_answer_citation
+enabled: true
+split: eval
+seed: 42
+source:
+  provider: princeton_nlp_alce
+  version: emnlp2023-v1
+  root_key: alce_qampari
+sampling:
+  profile: formal
+processing:
+  corpus_scope: alce_gtr_top100_plus_oracle
+  generation_max_tokens: 256
+  budget_matched_generation_max_tokens: 128
+  relevance_threshold: 3
+  answer_mode: list
+  citation_required: true

@@ -1,0 +1,49 @@
+name: budget_matched
+description: Fixed budget-constrained RAG envelope; report realized tokens and cost because method-intrinsic calls prevent exact equality with the closed-book cost floor.
+pipeline_overrides:
+  closed_book:
+    budget:
+      profile: budget_matched
+      max_generation_tokens: 64
+      strict_components: true
+  vanilla_rag:
+    retrieval:
+      top_k: 5
+    budget:
+      profile: budget_matched
+      max_context_tokens: 2048
+      max_generation_tokens: 64
+      strict_components: true
+  best_practice_rag:
+    query_formulation:
+      max_queries: 2
+    retrieval:
+      bm25_top_k: 50
+      dense_top_k: 50
+      final_top_k: 50
+      max_hop_queries: 1
+    reranking:
+      max_candidates: 50
+      top_k: 5
+    compression:
+      max_sentences: 12
+      max_tokens: 900
+    budget:
+      profile: budget_matched
+      max_context_tokens: 2048
+      max_generation_tokens: 128
+      max_queries: 2
+      strict_components: true
+  rag_verification:
+    verification:
+      questions_per_answer: 2
+      retrieval_top_k: 3
+    retrieval:
+      max_hop_queries: 1
+    budget:
+      profile: budget_matched
+      max_context_tokens: 2048
+      max_generation_tokens: 128
+      max_queries: 2
+      max_verification_questions: 2
+      strict_components: true

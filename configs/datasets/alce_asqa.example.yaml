@@ -1,0 +1,19 @@
+name: alce_asqa
+role: ambiguous_long_answer_citation
+task_track: long_answer_citation
+enabled: true
+split: eval
+seed: 42
+source:
+  provider: princeton_nlp_alce
+  version: emnlp2023-v1
+  root_key: alce_asqa
+sampling:
+  profile: formal
+processing:
+  corpus_scope: alce_gtr_top100_plus_oracle
+  answer_mode: long
+  generation_max_tokens: 512
+  budget_matched_generation_max_tokens: 256
+  relevance_threshold: 3
+  citation_required: true

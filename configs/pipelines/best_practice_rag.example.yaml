@@ -1,0 +1,67 @@
+name: best_practice_rag
+method:
+  family: enhanced_rag
+  paper_reference: Project-defined stack informed by ALCE and modern retrieval literature.
+  project_implementation: Original-plus-multi-query hybrid retrieval, cross-encoder reranking, evidence-set compression, and citation-aware generation.
+  controlled_parent: vanilla_rag
+task_profile:
+  track: short_answer
+  answer_mode: short
+  citations_required: true
+  abstention_allowed: true
+  max_answer_tokens: 64
+budget:
+  profile: quality_max
+  max_context_tokens: 4096
+  max_generation_tokens: 384
+  max_queries: 7
+  max_verification_questions: 1
+  strict_components: true
+stages:
+  query_formulation: multi_query_rewrite
+  retrieval: hybrid
+  reranking: cross_encoder
+  compression: sentence_top_n
+  generation: citation_aware
+  verification: none
+query_formulation:
+  max_queries: 4
+retrieval:
+  model_ref: default_retrieval
+  bm25_top_k: 100
+  bm25_k1: 1.2
+  bm25_b: 0.75
+  title_weight: 2
+  dense_top_k: 100
+  fusion: rrf
+  rrf_k: 60
+  multi_query_rrf_k: 60
+  iterative_hops: 2
+  hop1_seed_k: 3
+  max_hop_queries: 3
+  final_top_k: 100
+  include_title: true
+  search_backend: auto
+reranking:
+  model_ref: default_retrieval
+  max_candidates: 100
+  top_k: 12
+  include_title: true
+compression:
+  max_sentences: 24
+  max_tokens: 1800
+  min_chunks: 2
+  per_chunk_limit: 4
+  mmr_lambda: 0.8
+  semantic_scoring: true
+  semantic_weight: 1.0
+  lexical_weight: 0.35
+  rank_weight: 0.15
+generation:
+  temperature: 0.0
+  max_output_tokens: 384
+evidence_judge:
+  type: nli
+  model_ref: default_retrieval
+  entailment_threshold: 0.65
+  contradiction_threshold: 0.65

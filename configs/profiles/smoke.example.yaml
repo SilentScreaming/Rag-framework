@@ -1,0 +1,44 @@
+name: smoke
+description: Deterministic no-download profile for contracts and end-to-end smoke tests only.
+pipeline_overrides:
+  closed_book:
+    budget:
+      profile: smoke
+      strict_components: false
+  vanilla_rag:
+    retrieval:
+      top_k: 3
+    budget:
+      profile: smoke
+      strict_components: false
+  best_practice_rag:
+    query_formulation:
+      max_queries: 2
+    retrieval:
+      bm25_top_k: 5
+      dense_top_k: 5
+      final_top_k: 5
+      max_hop_queries: 1
+    reranking:
+      max_candidates: 5
+      top_k: 3
+    compression:
+      semantic_scoring: false
+      max_sentences: 4
+      max_tokens: 256
+    evidence_judge:
+      type: rule
+    budget:
+      profile: smoke
+      strict_components: false
+  rag_verification:
+    verification:
+      questions_per_answer: 2
+      retrieval_top_k: 2
+    retrieval:
+      max_hop_queries: 1
+    evidence_judge:
+      type: rule
+    budget:
+      profile: smoke
+      strict_components: false

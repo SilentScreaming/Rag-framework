@@ -1,0 +1,19 @@
+name: quality_max
+description: Example profile enabling configured real components; this name is not a claim of optimal quality.
+pipeline_overrides:
+  closed_book:
+    budget:
+      profile: quality_max
+      strict_components: true
+  vanilla_rag:
+    budget:
+      profile: quality_max
+      strict_components: true
+  best_practice_rag:
+    budget:
+      profile: quality_max
+      strict_components: true
+  rag_verification:
+    budget:
+      profile: quality_max
+      strict_components: true

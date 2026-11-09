@@ -1,0 +1,20 @@
+name: scifact
+role: scientific_claim_verification
+task_track: verification_hallucination
+enabled: true
+split: dev
+seed: 42
+source:
+  provider: allenai
+  version: release-latest
+  root_key: scifact
+sampling:
+  profile: formal
+  labels: [SUPPORT, CONTRADICT, NOT_ENOUGH_INFO]
+processing:
+  corpus_scope: scifact_full_corpus
+  answer_mode: claims
+  generation_max_tokens: 32
+  budget_matched_generation_max_tokens: 32
+  relevance_threshold: 3
+  abstention_allowed: false

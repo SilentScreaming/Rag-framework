@@ -1,0 +1,29 @@
+name: closed_book
+method:
+  family: closed_book
+  paper_reference: null
+  project_implementation: Same generator and answer contract, without retrieval or external evidence.
+  controlled_parent: null
+task_profile:
+  track: short_answer
+  answer_mode: short
+  citations_required: false
+  abstention_allowed: true
+  max_answer_tokens: 64
+budget:
+  profile: quality_max
+  max_context_tokens: 128
+  max_generation_tokens: 64
+  max_queries: 1
+  max_verification_questions: 1
+  strict_components: true
+stages:
+  query_formulation: none
+  retrieval: none
+  reranking: none
+  compression: none
+  generation: citation_free
+  verification: none
+generation:
+  temperature: 0.0
+  max_output_tokens: 64

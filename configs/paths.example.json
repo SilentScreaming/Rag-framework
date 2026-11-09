@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "datasets_root": "data",
+  "models_root": "models",
+  "outputs_root": "outputs",
+  "datasets": {
+    "toy": {
+      "version": "synthetic-v1",
+      "root": "examples/toy/processed"
+    },
+    "kilt_nq": {
+      "version": "kilt-2019-08",
+      "root": "data/facebookresearch/kilt/kilt-2019-08/processed/kilt_nq"
+    },
+    "kilt_hotpotqa": {
+      "version": "kilt-2019-08",
+      "root": "data/facebookresearch/kilt/kilt-2019-08/processed/kilt_hotpotqa"
+    },
+    "alce_asqa": {
+      "version": "emnlp2023-v1",
+      "root": "data/princeton-nlp/alce/emnlp2023-v1/processed/alce_asqa"
+    },
+    "alce_qampari": {
+      "version": "emnlp2023-v1",
+      "root": "data/princeton-nlp/alce/emnlp2023-v1/processed/alce_qampari"
+    },
+    "scifact": {
+      "version": "release-latest",
+      "root": "data/allenai/scifact/release-latest/processed/scifact"
+    },
+    "garage": {
+      "version": "acl2025-v1",
+      "root": "data/amazon-science/garage/acl2025-v1/processed/garage"
+    },
+    "ragtruth_qa": {
+      "version": "2024-02",
+      "root": "data/particlemedia/ragtruth/2024-02/processed/ragtruth"
+    },
+    "rgb_en": {
+      "version": "2024-03",
+      "root": "data/chen700564/rgb/2024-03/processed/rgb"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+name: kilt_nq
+role: single_hop_open_domain_qa
+task_track: short_answer
+enabled: true
+split: dev
+seed: 42
+source:
+  provider: facebookresearch_kilt
+  version: kilt-2019-08
+  root_key: kilt_nq
+sampling:
+  profile: formal
+processing:
+  corpus_scope: kilt_full_wikipedia_2019
+  answer_mode: short
+  generation_max_tokens: 64
+  budget_matched_generation_max_tokens: 64
+  relevance_threshold: 3
+  abstention_allowed: false
+  revise_short_answer: true

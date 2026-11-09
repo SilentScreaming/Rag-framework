@@ -1,0 +1,37 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+configs/*.local.json
+
+# Environments, downloads, caches, and generated artifacts
+.venv/
+venv/
+.cache/
+/data/
+/datasets/
+/models/
+/checkpoints/
+/outputs/
+/runs/
+/artifacts/
+wandb/
+mlruns/
+*.log
+
+# Python and development tools
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+.vscode/
+.idea/
+build/
+dist/
+*.egg-info/
+.DS_Store
+Thumbs.db

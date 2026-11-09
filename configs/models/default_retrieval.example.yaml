@@ -1,0 +1,27 @@
+embedding_model:
+  name: BAAI/bge-large-en-v1.5
+  model: BAAI/bge-large-en-v1.5
+  provider: sentence-transformers
+  revision: d4aa6901d3a41ba39fb536a557fa166f842b0e09
+  batch_size: 32
+  query_instruction: "Represent this sentence for searching relevant passages: "
+  document_instruction: ""
+bm25:
+  tokenizer: simple_word
+hybrid:
+  fusion: rrf
+  rrf_k: 60
+reranker:
+  name: BAAI/bge-reranker-large
+  model: BAAI/bge-reranker-large
+  provider: sentence-transformers
+  revision: 55611d7bca2a7133960a6d3b71e083071bbfc312
+  batch_size: 16
+  max_length: 512
+evidence_judge:
+  name: cross-encoder/nli-deberta-v3-base
+  model: cross-encoder/nli-deberta-v3-base
+  provider: transformers
+  revision: 6c749ce3425cd33b46d187e45b92bbf96ee12ec7
+  device: cpu
+  max_length: 512

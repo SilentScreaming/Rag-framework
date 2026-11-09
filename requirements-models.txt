@@ -1,0 +1,2 @@
+# Core package plus optional retrieval, reranking, and NLI dependencies.
+-e .[models]

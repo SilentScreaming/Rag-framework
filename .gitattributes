@@ -1,0 +1,19 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.sh text eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ipynb text eol=lf
+*.png binary
+*.jpg binary
+*.pdf binary
+*.pt binary
+*.pth binary
+*.safetensors binary
+*.onnx binary

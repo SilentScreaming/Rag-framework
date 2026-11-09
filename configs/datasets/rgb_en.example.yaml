@@ -1,0 +1,16 @@
+name: rgb_en
+role: rag_robustness_stress_test
+task_track: verification_hallucination
+enabled: true
+split: mixed
+seed: 42
+source:
+  provider: chen700564
+  version: 2024-03
+  root_key: rgb_en
+sampling:
+  profile: formal
+processing:
+  corpus_scope: per_example_provided_context
+  answer_mode: short
+  generation_max_tokens: 128

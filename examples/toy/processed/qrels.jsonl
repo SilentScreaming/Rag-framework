@@ -1,0 +1,3 @@
+{"schema_version":"qrel-v1","example_id":"toy-1","chunk_id":"toy-c1","relevance":3,"support_type":"gold","metadata":{}}
+{"schema_version":"qrel-v1","example_id":"toy-2","chunk_id":"toy-c2","relevance":3,"support_type":"gold","metadata":{}}
+{"schema_version":"qrel-v1","example_id":"toy-3","chunk_id":"toy-c3","relevance":3,"support_type":"gold","metadata":{}}
